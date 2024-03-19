@@ -6,14 +6,22 @@ def libDir = "${projectDir}/libs"
 File capacitorConfig = new File("${userDir}/../capacitor.config.json")
 
 if (capacitorConfig.exists()) {
-  // Capacitor app
-  libDir = "${userDir}/../node_modules/${NAME}/src/android/libs"
+  // Capacitor app detected.  libDir is from node_modules
+  def nodeModulesDir = (project.hasProperty("nodeModulesDirectory")) ? project.property("nodeModulesDirectory") : "../../node_modules"
+
+  libDir = "${projectDir}/${nodeModulesDir}/${NAME}/src/android/libs"
   println("[${NAME}] Capacitor detected")
 }
 
 println("[${NAME}] libDir: ${libDir}")
 
+repositories {
+	maven {
+    	url libDir
+  	}
+}
+
 dependencies {
     // Load tsbackgroundfetch.aar
-    implementation fileTree(include: ['*.aar'], dir: "${libDir}/tsbackgroundfetch")
+    implementation(group: 'com.transistorsoft', name:'tsbackgroundfetch', version: '+')
 }
