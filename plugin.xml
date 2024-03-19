@@ -61,7 +61,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <service android:exported="true" android:name="com.transistorsoft.cordova.backgroundfetch.HeadlessJobService" android:permission="android.permission.BIND_JOB_SERVICE" />
 
-            <receiver android:name="com.transistorsoft.cordova.backgroundfetch.HeadlessBroadcastReceiver">
+            <receiver android:exported="true" android:name="com.transistorsoft.cordova.backgroundfetch.HeadlessBroadcastReceiver">
                 <intent-filter>
                     <action android:name="${applicationId}.event.BACKGROUND_FETCH" />
                 </intent-filter>
